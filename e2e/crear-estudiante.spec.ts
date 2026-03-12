@@ -1,7 +1,30 @@
 import { test, expect } from '@playwright/test';
+import { randomBytes } from 'node:crypto';
 
 const ADMIN_USER = 'admin';
 const ADMIN_PASSWORD = 'Admin123!';
+
+function uniqueSuffix(): string {
+  return `${randomBytes(4).toString('hex')}`;
+}
+
+function randomDate(startYear: number, endYear: number): string {
+  const year = startYear + Math.floor(Math.random() * (endYear - startYear + 1));
+  const month = String(1 + Math.floor(Math.random() * 12)).padStart(2, '0');
+  const day = String(1 + Math.floor(Math.random() * 28)).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function randomStudentData() {
+  const suffix = uniqueSuffix();
+  return {
+    nombre: `Nombre-${suffix}`,
+    apellidos: `Apellidos-${suffix}`,
+    documento: `DOC-${suffix}`,
+    email: `e2e-${suffix}@test.com`,
+    fechaNacimiento: randomDate(1990, 2005),
+  };
+}
 
 test.describe('Creación de estudiante (e2e)', () => {
   test.beforeEach(async ({ page }) => {
@@ -16,11 +39,7 @@ test.describe('Creación de estudiante (e2e)', () => {
   test('flujo completo: ir a registro, rellenar formulario, enviar y ver estudiante en la lista', async ({
     page,
   }) => {
-    const nombre = 'E2E';
-    const apellidos = 'Usuario Prueba';
-    const documento = `E2E-${Date.now()}`;
-    const email = `e2e-${Date.now()}@test.com`;
-    const fechaNacimiento = '2000-05-15';
+    const { nombre, apellidos, documento, email, fechaNacimiento } = randomStudentData();
 
     await page.goto('/estudiantes');
     await expect(page.getByRole('heading', { name: /estudiantes/i })).toBeVisible();

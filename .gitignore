@@ -15,3 +15,10 @@ coverage
 .vscode
 *.tsbuildinfo
 package-lock.json
+
+# Playwright e2e
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+.playwright/
