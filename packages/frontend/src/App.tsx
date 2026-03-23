@@ -7,6 +7,7 @@ import { InscripcionCursosPage } from './components/pages/InscripcionCursosPage'
 import { UsuariosPage } from './components/pages/UsuariosPage';
 import { CursosPage } from './components/pages/CursosPage';
 import { HorariosPage } from './components/pages/HorariosPage';
+import { AulasPage } from './components/pages/AulasPage';
 import { MiPerfilPage } from './components/pages/MiPerfilPage';
 import { MisClasesPage } from './components/pages/MisClasesPage';
 import { PlaceholderPage } from './components/pages/PlaceholderPage';
@@ -42,7 +43,7 @@ function App() {
           <Route path="/calificaciones" element={<PlaceholderPage title="Calificaciones" />} />
           <Route path="/prerrequisitos" element={<PlaceholderPage title="Prerrequisitos" />} />
           <Route path="/plan-estudios" element={<PlaceholderPage title="Plan de estudios" />} />
-          <Route path="/aulas" element={<PlaceholderPage title="Aulas" />} />
+          <Route path="/aulas" element={<AulasPage />} />
           <Route path="/inscripciones" element={<PlaceholderPage title="Inscripciones" />} />
           <Route path="/asistencia" element={<PlaceholderPage title="Asistencia" />} />
         </Route>

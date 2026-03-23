@@ -2,6 +2,8 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
+  Delete,
   Body,
   Param,
   NotFoundException,
@@ -25,7 +27,26 @@ export class SchedulesController {
   }
 
   @Post()
-  async create(@Body() body: { courseId: string; slot: string }) {
+  async create(
+    @Body() body: { courseId: string; slot: string; classroomId: string },
+  ) {
     return this.scheduleService.create(body);
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body()
+    body: { courseId?: string; slot?: string; classroomId?: string },
+  ) {
+    const schedule = await this.scheduleService.update(id, body);
+    if (!schedule) throw new NotFoundException('Schedule not found');
+    return schedule;
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    const deleted = await this.scheduleService.delete(id);
+    if (!deleted) throw new NotFoundException('Schedule not found');
   }
 }

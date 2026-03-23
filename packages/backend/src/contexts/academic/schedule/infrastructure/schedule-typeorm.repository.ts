@@ -27,12 +27,17 @@ export class ScheduleTypeOrmRepository implements IScheduleRepository {
       id: schedule.id,
       courseId: schedule.courseId,
       slot: schedule.slot,
+      classroomId: schedule.classroomId,
     });
     await this.repo.save(row);
     return schedule;
   }
 
+  async delete(id: string): Promise<void> {
+    await this.repo.delete(id);
+  }
+
   private toDomain(row: ScheduleTypeOrmEntity): Schedule {
-    return new Schedule(row.id, row.courseId, row.slot);
+    return new Schedule(row.id, row.courseId, row.slot, row.classroomId);
   }
 }

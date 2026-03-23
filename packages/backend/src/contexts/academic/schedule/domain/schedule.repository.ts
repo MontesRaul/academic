@@ -6,4 +6,5 @@ export interface IScheduleRepository {
   findAll(): Promise<Schedule[]>;
   findById(id: string): Promise<Schedule | null>;
   save(schedule: Schedule): Promise<Schedule>;
+  delete(id: string): Promise<void>;
 }
